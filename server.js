@@ -1,23 +1,17 @@
-const express = require('express');
-const server = express();
+var express = require('express');
+const http = require('http');
+var app = express();
 const fs = require('fs');
-const path = require('path');
+var server = http.createServer(app);
 
-server.use('/dist', express.static(path.join(__dirname, './dist')));
 
-server.get('*', (req, res) => { 
-  renderer.renderToString(app, context, function (err, html) {   
-    if (err) {
-      if (err.code === 404) {
-        res.status(404).end('Page not found')
-      } else {
-        res.status(500).end('Internal Server Error')
-      }
-    } else {
-      res.end(html)
-    }
-  }, (err) => {
-    console.log(err);
-  });
-}); 
-server.listen(8080);
+http.createServer(function(request, response) {
+ 
+    fs.readFile('products.json', function(err, content){
+        response.write(content);
+        response.end();
+    });
+
+}).listen(3005);
+
+console.log("Listening on port " + 3005 );
