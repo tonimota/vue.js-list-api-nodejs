@@ -1,17 +1,18 @@
-var express = require('express');
-const http = require('http');
-var app = express();
-const fs = require('fs');
-var server = http.createServer(app);
+const express = require('express')
 
+const app = express()
+const port = process.env.PORT || 3000
+const router = express.Router()
 
-http.createServer(function(request, response) {
- 
-    fs.readFile('products.json', function(err, content){
-        response.write(content);
-        response.end();
-    });
+app.use('/static', express.static(__dirname + '/dist/static'))
+app.engine('.html', require('ejs').renderFile)
+app.set('views', `${__dirname}/dist`)
 
-}).listen(3005);
+router.get('*', (req, res, next) => {
+  res.sendFile(`${__dirname}/dist/index.html`)
+})
 
-console.log("Listening on port " + 3005 );
+app.use('/', router)
+
+app.listen(port)
+console.log('app running on port', port)
