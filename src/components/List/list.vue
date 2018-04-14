@@ -1,66 +1,111 @@
 <template>
     <div class="container">
-      <netshoes-cart :cart="cart" ></netshoes-cart>
-      <div class="row" v-for="products_itens in products_list" :key="products_itens.id">
-        <div class="col-xs-6 col-md-3  offset-md-1 col-lg-3  offset-lg-1 item-list"
-            v-for="item in products_itens"
-            :key="item.id"
-            :id="item.sku"
-            @click="addItemCart(item.sku, item.title, item.price)">
-          <a href="javascript:void(0)" @mouseenter="showBuy(item.sku)" v-on:mouseleave="hideBuy(item.sku)">
+      <netshoes-cart :cart="cart" />
+
+      <div class="row">
+        <div class="col-xs-6 col-md-3  offset-md-1 col-lg-3  offset-lg-1 item-list" v-for="(item, index) in products_list" :key="index" :id="item.sku">
+          <a href="#"
+            @mouseenter="showBuy(item.sku)"
+            @mouseleave="hideBuy(item.sku)"
+            @click.prevent="addItemCart(item)">
             <img class="buy-icon" src="@/assets/img/buy.png" alt="Imagem 1">
             <img class="product-image" src="@/assets/img/img1.jpg" alt="Imagem 1">
           </a>
-            <span class="title-description">{{ item.title }}</span>
-            <span class="item-price"><strong> {{item.currencyFormat}} {{item.price}}</strong></span>
-            <span class="card-payment" v-on="calcCard(item.price,item.installments)">ou x {{priceInstall}}</span>
+          <span class="title-description">{{ item.title }}</span>
+          <span class="item-price"><strong> {{item.currencyFormat}} {{item.price}}</strong></span>
+          <span class="card-payment">ou x {{calcInstallments(item.price, item.installments)}}</span>
         </div>
       </div>
     </div>
 </template>
 
 <script>
-import products from '@/assets/helper/products.json';
+import json from '@/assets/helper/products.json';
 import cart from '@/components/Cart/cart';
+import Vue from 'vue'
 
 export default {
   data() {
     return {
-      products_list: products,
-      price: null,
-      itemInstall: null,
-      priceInstall: 0,
-      show: true,
-      cart: [
+      products_list: json.products,
+      add: false,
+      cart: [],
+      teste: [
         {
-          product_id: '',
-          product_title: '',
-          product_price: '',
+          id: 0,
+          sku: 8552515751438644,
+          title: 'Camisa Nike Corinthians I',
+          description: '14/15 s/nº',
+          availableSizes: ['S', 'G', 'GG', 'GGG'],
+          style: 'Branco com listras pretas',
+          price: 229.9,
+          installments: 9,
+          currencyId: 'BRL',
+          currencyFormat: 'R$',
+          isFreeShipping: true,
+        },
+
+        {
+          id: 1,
+          sku: 18644119330491312,
+          title: 'Camisa Nike Corinthians II',
+          description: '14/15 s/nº',
+          availableSizes: ['S', 'G', 'GG', 'GGG'],
+          style: 'Preta com listras brancas',
+          price: 229.9,
+          installments: 9,
+          currencyId: 'BRL',
+          currencyFormat: 'R$',
+          isFreeShipping: true,
+        },
+
+        {
+          id: 2,
+          sku: 11854078013954528,
+          title: 'Camisa Feminina Nike Corinthians I',
+          description: '14/15 s/nº',
+          availableSizes: ['S', 'G'],
+          style: 'Branco com listras pretas',
+          price: 199.9,
+          installments: 7,
+          currencyId: 'BRL',
+          currencyFormat: 'R$',
+          isFreeShipping: true,
         },
       ],
     };
   },
-  // computed: {
-  //   cartComputed() {
-  //     return this.cart;
-  //   },
-  // },
   components: {
     'netshoes-cart': cart,
   },
   methods: {
-    calcCard(price, parc) {
-      this.price = price;
-      this.itemInstall = parc;
-      this.priceInstall = (this.price / this.itemInstall).toFixed(2).replace('.', ',');
+    calcInstallments(price, parc) {
+      return (price / parc).toFixed(2).replace('.', ',');
     },
-    addItemCart(id, title, price) {
-      this.cart.push({
-        product_id: id,
-        product_title: title,
-        product_price: price,
-      });
-      // eslint-disable-next-line
+    addItemCart(item) {
+      this.add = false;
+      if (this.cart.length > 0) {
+        this.cart.forEach((index) => {
+          if (index.sku === item.sku) {
+            console.log('item: ' + item.sku);
+            console.log('index: ' + index.sku);
+            console.log('quantity: ' + index.quantity);
+            if(index.quantity === undefined) {
+              index.quantity = 1
+            } else {
+              item.quantity =+1;
+            }
+            this.$set(index, 'quantity', '');
+            console.log(index);
+            this.add = true;
+          }
+        });
+        if (!this.add) {
+          this.cart.push(item);
+        }
+      } else {
+        this.cart.push(item);
+      }
       console.log(this.cart);
     },
     hideBuy(item) {

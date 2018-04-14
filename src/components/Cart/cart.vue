@@ -1,13 +1,14 @@
 <template>
   <div class="row">
     <div id="mySidenav" class="sidenav">
-      <a href="javascript:void(0)" class="closebtn" v-on:click="closeNav()">&times;</a>
+      <a href="#" class="closebtn" @click.prevent="closeNav()">&times;</a>
       <ul>
-        <li v-for="item in cart" :key="item.id">
-          {{item.product_id}}
-          {{item.product_title}}
-          {{item.product_price}}
+        <li v-for="(item, index) in cart" :key="`item-${index}`">
+          {{ item.id }}
+          {{ item.title }}
+          {{ item.price }}
         </li>
+        <!-- <span>{{cart[4]}}</span> -->
       </ul>
     </div>
     <span style="font-size:30px;cursor:pointer" v-on:click="openNav()">&#9776; open</span>
@@ -18,12 +19,11 @@
 export default {
   props: {
     cart: {
-      type: Array, require: true,
+      type: Array,
+      require: true,
     },
   },
   mounted() {
-    console.log(this.cart.length);
-    console.log(this.cart);
   },
   data() {
     return {
@@ -34,7 +34,6 @@ export default {
     openNav() {
       document.getElementById('mySidenav').style.width = '100%';
       // eslint-disable
-      console.log(this.cart);
     },
     closeNav() {
       document.getElementById('mySidenav').style.width = '0';
