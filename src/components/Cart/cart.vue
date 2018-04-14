@@ -3,15 +3,12 @@
     <div id="mySidenav" class="sidenav">
       <a href="javascript:void(0)" class="closebtn" v-on:click="closeNav()">&times;</a>
       <ul>
-        <li v-for="item in list" :key="item.id">
+        <li v-for="item in cart" :key="item.id">
           {{item.product_id}}
           {{item.product_title}}
           {{item.product_price}}
         </li>
       </ul>
-      <a href="#">Services</a>
-      <a href="#">Clients</a>
-      <a href="#">Contact</a>
     </div>
     <span style="font-size:30px;cursor:pointer" v-on:click="openNav()">&#9776; open</span>
   </div>
@@ -19,16 +16,25 @@
 
 <script>
 export default {
-  props: ['prop'],
+  props: {
+    cart: {
+      type: Array, require: true,
+    },
+  },
+  mounted() {
+    console.log(this.cart.length);
+    console.log(this.cart);
+  },
   data() {
     return {
-      list: this.prop,
+      // list: this.cart,
     };
   },
   methods: {
     openNav() {
       document.getElementById('mySidenav').style.width = '100%';
-      console.log(this.prop);
+      // eslint-disable
+      console.log(this.cart);
     },
     closeNav() {
       document.getElementById('mySidenav').style.width = '0';

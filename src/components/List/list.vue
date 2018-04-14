@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-      <netshoes-cart :prop="cart"></netshoes-cart>
+      <netshoes-cart :cart="cart" ></netshoes-cart>
       <div class="row" v-for="products_itens in products_list" :key="products_itens.id">
         <div class="col-xs-6 col-md-3  offset-md-1 col-lg-3  offset-lg-1 item-list"
             v-for="item in products_itens"
@@ -40,6 +40,11 @@ export default {
       ],
     };
   },
+  // computed: {
+  //   cartComputed() {
+  //     return this.cart;
+  //   },
+  // },
   components: {
     'netshoes-cart': cart,
   },
@@ -55,6 +60,7 @@ export default {
         product_title: title,
         product_price: price,
       });
+      // eslint-disable-next-line
       console.log(this.cart);
     },
     hideBuy(item) {
