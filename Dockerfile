@@ -1,18 +1,17 @@
 FROM node:8.9.4
 
-ADD package.json /tmp/package.json
-RUN cd /temp && npm install
-RUN mkdir -p /usr/app && cp -a /tmp/node_modules /usr/src/app
+RUN mkdir -p /usr/src/app && cd /usr/src/app
+ADD package.json /usr/src/app/package.json
 
-WORKDIR /usr/src/app
+WORKDIR usr/src/app
 ADD . /usr/src/app
+RUN npm install
+# RUN npm install --silent --progress=false
 
 RUN npm run build
 RUN rm -rf ./build
 RUN rm -rf ./src
 
-ENV PORT=80
-
-EXPOSE 80
+EXPOSE 3000
 
 CMD ["npm" "start"]

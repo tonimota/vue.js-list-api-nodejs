@@ -49,7 +49,6 @@
           </span>
         </div>
     </div>
-
   </div>
 </template>
 
@@ -185,7 +184,7 @@ export default {
   }
   .icon-bag {
     @extend %font-large;
-    font-family: 'OpenSans-Bold';
+    @extend %bold;
     line-height: 44px;
     vertical-align: bottom;
     margin-bottom: 50px;
@@ -193,7 +192,7 @@ export default {
       padding-right: 10px;
     }
     span {
-      font-family: 'OpenSans-Bold';
+      @extend %bold;
       vertical-align: middle;
     }
     .products-quantity {
@@ -257,9 +256,9 @@ export default {
     .cart-list-details {
       vertical-align: top;
       color: #999999;
-      font-family: 'open_sanslight';
+      @extend %light;
       .details-title {
-        font-family: 'open_sanssemibold';
+        @extend %semi-bold;
         color: #fff;
         display: block;
         margin: 0px;
@@ -291,7 +290,7 @@ export default {
         .line-price {
           float: right;
           color: #dfbd00;
-          font-family: 'OpenSans-Bold';
+          @extend %bold;
           @extend %font-medium;
           margin-right: -10px;
         }
@@ -333,7 +332,7 @@ export default {
         color: #dfbd00;
         text-align: right;
         strong {
-          font-family: 'OpenSans-Bold';
+          @extend %bold;
         }
         em {
           display: block;
@@ -351,7 +350,7 @@ export default {
       text-align: center;
       display: block;
       margin: 0 auto;
-      font-family: 'OpenSans-Bold';
+      @extend %bold;
       text-transform: uppercase;
       transition: all 0.5s;
       &:hover {
