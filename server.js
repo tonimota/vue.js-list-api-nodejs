@@ -5,7 +5,9 @@ const port = process.env.PORT || 3001
 const router = express.Router()
 
 app.use('/static', express.static(__dirname + '/dist/static'))
+
 app.engine('.html', require('ejs').renderFile)
+
 app.set('views', `${__dirname}/dist`)
 
 router.get('*', (req, res, next) => {
