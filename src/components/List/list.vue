@@ -1,9 +1,8 @@
 <template>
     <div class="container">
       <netshoes-cart :cart="cart" />
-
       <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-4  offset-md-1 col-lg-4  offset-lg-1 item-list" v-for="(item, index) in products_list" :key="index" :id="item.sku">
+        <div class="col-xs-12 col-sm-6 col-md-3 col-md-offset-1 col-lg-4 col-lg-offset-0 item-list" v-for="(item, index) in products_list" :key="index" :id="item.sku">
           <a href="#"
             @mouseenter="showBuy(item.sku)"
             @mouseleave="hideBuy(item.sku)"
@@ -68,6 +67,19 @@ export default {
 <style lang="scss">
 @import "../../assets/style/scss/_variables.scss";
 .item-list {
+  height: 390px;
+  &::before {
+    content: "";
+    display: block;
+    margin-top: 50px;
+  }
+  &:hover {
+    .item-price {
+      &::before {
+        width: 100px;
+      }
+    }
+  }
   a {
     display: inline-block;
     img {
@@ -77,7 +89,7 @@ export default {
       width: 50px;
       height: 50px;
       position: absolute;
-      top: 40%;
+      top: 45%;
       transform: translateY(-50%);
       left: 42%;
       opacity: 0;
@@ -88,18 +100,21 @@ export default {
       -webkit-transition: opacity 1s; /* For Safari 3.1 to 6.0 */
       transition: opacity 1s;
     }
-    &:hover .product-image {
-      opacity: 0.5;
-      -webkit-transition: all 1s; /* For Safari 3.1 to 6.0 */
-      transition: all 1s;
-    }
-    &:hover .buy-icon {
-      opacity: 1;
-      -webkit-transition: all 1s; /* For Safari 3.1 to 6.0 */
-      transition: all 1s;
+    &:hover {
+      .product-image {
+        opacity: 0.5;
+        -webkit-transition: all 1s; /* For Safari 3.1 to 6.0 */
+        transition: all 1s;
+      }
+      .buy-icon {
+        opacity: 1;
+        -webkit-transition: all 1s; /* For Safari 3.1 to 6.0 */
+        transition: all 1s;
+      }
     }
   }
   .title-description {
+    height: 40px;
     margin-top: 15px;
   }
   .item-price {
@@ -107,6 +122,15 @@ export default {
     strong {
       font-family: 'OpenSans-Bold';
       @extend %font-large;
+    }
+    &::before {
+      content: "";
+      width: 20px;
+      height: 3px;
+      display: block;
+      margin: 0 auto;
+      background-color: #dfbc00;
+      transition: all 0.5s;
     }
   }
   .card-payment {
