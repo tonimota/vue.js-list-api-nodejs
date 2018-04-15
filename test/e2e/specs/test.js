@@ -10,10 +10,15 @@ module.exports = {
 
     browser
       .url(devServer)
-      .waitForElementVisible('#app', 5000)
-      .assert.elementPresent('.hello')
-      .assert.containsText('h1', 'Welcome to Your Vue.js App')
-      .assert.elementCount('img', 1)
+      .waitForElementVisible('#app', 1000)
+      .click('.item-list')
+      let qtd = document.querySelectorAll('.item-list')
+      qtd.forEach((index) => {
+        .waitForElementVisible('.item-list', 1000)
+      }
+      .waitForElementVisible('.item-list', 1000)
+      // .assert.containsText('h1', 'Welcome to Your Vue.js App')
+      // .assert.elementCount('img', 1)
       .end();
   },
 };
