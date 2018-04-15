@@ -120,7 +120,7 @@ export default {
   .item-price {
     font-size: 12px;
     strong {
-      font-family: 'OpenSans-Bold';
+      @extend %extra-bold;
       @extend %font-large;
     }
     &::before {
@@ -135,7 +135,7 @@ export default {
   }
   .card-payment {
     @extend %font-medium;
-    font-family: 'open_sanssemibold';
+    @extend %semi-bold;
     color: #999999;
   }
 }

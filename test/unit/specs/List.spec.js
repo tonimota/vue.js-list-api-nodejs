@@ -11,9 +11,10 @@ it('should size correct itens', () => {
   expect(wrapper.find('.item-list')[0].hasStyle('height', '390px'))
     .to.equal(true);
 });
-it('qtd itens', () => {
+it('check quantity itens in object and list', () => {
+  const ObjProduct = wrapper.data().products_list.length;
   expect(wrapper.find('.item-list').length)
-    .to.equal(wrapper.find('.item-list').length);
+    .to.equal(ObjProduct);
 });
 // it('simulate click in itens', () => {
 //   expect(wrapper.find('.item-list')[0].click());
