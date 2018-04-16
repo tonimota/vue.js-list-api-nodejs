@@ -38,11 +38,12 @@
             <span class="cart-description-total">R$ <strong>{{total_order}}</strong><em>ou em até 10x de R$ {{total_install}}</em></span>
           </p>
           <button class="btn-buy-button" @click="sendOrder(),calcTotalItens()">Comprar</button>
+          <span class="order-message">{{msg}}</span>
         </div>
       </div>
     </div>
     <div class="icon-cart">
-        <div class="icon-title" @click="openNav(),itensLocalStorageCheck()">
+        <div class="icon-title" @click="openNav(), itensLocalStorageCheck()">
           <span class="open-cart">
             <img src="@/assets/img/buy2.png" />
             <!-- <p class="products-quantity">{{total}}</p> -->
@@ -69,6 +70,7 @@ export default {
       total_install: 0,
       localItens: 0,
       cart: '',
+      msg: '',
     };
   },
   methods: {
@@ -77,6 +79,7 @@ export default {
       document.getElementById('mySidenav').style.opacity = '1';
     },
     closeNav() {
+      this.msg = '';
       document.getElementById('mySidenav').style.width = '0';
       document.getElementById('mySidenav').style.opacity = '0';
     },
@@ -107,9 +110,13 @@ export default {
     },
     sendOrder() {
       let control = this.cart.length;
-      while (this.cart.length > 0) {
-        this.cart.splice(control);
-        control -= 1;
+      if (control > 0) {
+        while (this.cart.length > 0) {
+          this.cart.splice(control);
+          control -= 1;
+        }
+        this.msg = 'Pedido Realizado com Sucesso :)';
+        localStorage.setItem('products', JSON.stringify(this.cart));
       }
     },
     itensLocalStorageCheck() {
@@ -371,6 +378,14 @@ export default {
         background-color: rgba(223,189,0,1);
         color: #000;
       }
+    }
+    .order-message {
+      display: inline-block;
+      color: #dfbd00;
+      text-align: center;
+      margin-top: 20px;
+      @extend %regular;
+      @extend %font-large;
     }
   }
 }
