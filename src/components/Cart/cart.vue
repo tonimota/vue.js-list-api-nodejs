@@ -199,6 +199,7 @@ export default {
     right: 25px;
     font-size: 36px;
     margin-left: 50px;
+    text-decoration: none;
   }
   ul {
     padding: 0px;
