@@ -37,12 +37,12 @@
             <span class="cart-description-title">Subtotal</span>
             <span class="cart-description-total">R$ <strong>{{total_order}}</strong><em>ou em até 10x de R$ {{total_install}}</em></span>
           </p>
-          <button class="btn-buy-button" @click="sendOrder(), calcTotalItens()">Comprar</button>
+          <button class="btn-buy-button" @click="sendOrder(),calcTotalItens()">Comprar</button>
         </div>
       </div>
     </div>
     <div class="icon-cart">
-        <div class="icon-title" @click="openNav(),calcTotalItens()">
+        <div class="icon-title" @click="openNav(),itensLocalStorageCheck()">
           <span class="open-cart">
             <img src="@/assets/img/buy2.png" />
             <!-- <p class="products-quantity">{{total}}</p> -->
@@ -55,10 +55,10 @@
 <script>
 export default {
   props: {
-    cart: {
-      type: Array,
-      require: true,
-    },
+    // cart: {
+    //   type: Array,
+    //   require: true,
+    // },
   },
   mounted() {
   },
@@ -67,6 +67,8 @@ export default {
       total_itens: 0,
       total_order: 0,
       total_install: 0,
+      localItens: 0,
+      cart: '',
     };
   },
   methods: {
@@ -82,12 +84,14 @@ export default {
       this.total_itens = 0;
       this.total_order = 0;
       this.total_install = 0;
-      this.cart.forEach((index) => {
-        this.total_itens = this.total_itens + index.quantity;
-        this.total_order = this.total_order + (index.quantity * index.price);
-      });
-      this.total_install = (this.total_order / 10).toFixed(2).replace('.', ',');
-      this.total_order = this.total_order.toFixed(2).replace('.', ',');
+      if (this.cart.length > 0) {
+        this.cart.forEach((index) => {
+          this.total_itens = this.total_itens + index.quantity;
+          this.total_order = this.total_order + (index.quantity * index.price);
+        });
+        this.total_install = (this.total_order / 10).toFixed(2).replace('.', ',');
+        this.total_order = this.total_order.toFixed(2).replace('.', ',');
+      }
     },
     deleleItem(item, id) {
       this.cart.forEach((index) => {
@@ -99,12 +103,22 @@ export default {
           }
         }
       });
+      localStorage.setItem('products', JSON.stringify(this.cart));
     },
     sendOrder() {
       let control = this.cart.length;
       while (this.cart.length > 0) {
         this.cart.splice(control);
         control -= 1;
+      }
+    },
+    itensLocalStorageCheck() {
+      this.localItens = JSON.parse(localStorage.getItem('products'));
+      if (this.localItens != null) {
+        this.cart = this.localItens;
+        this.calcTotalItens();
+      } else {
+        this.cart = 0;
       }
     },
   },
