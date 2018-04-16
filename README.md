@@ -1,6 +1,6 @@
-# netshoes-test
+# Netshoes Products
 
-> A Vue.js project
+> Project developed in Vue.js
 
 ### Utils ###
 
