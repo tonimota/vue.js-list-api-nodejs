@@ -9,11 +9,15 @@ https://github.com/tonimota/api-simple
 
 This project running in port 3000 with node server.
 
-Dockerfile inside project
+Dockerfile inside the project
 
 ## Build Setup
 
 ``` bash
+# getproject
+git clone https://github.com/tonimota/netshoes-test # or clone your own fork
+cd netshoes-test
+
 # install dependencies
 npm install
 
@@ -24,10 +28,7 @@ npm run dev
 npm run build
 
 # server node running application in port:3000
-npm start
-
-# build for production and view the bundle analyzer report
-npm run build --report
+npm start (necessary 'npm run build' before)
 
 # run basic tests
 npm test
@@ -41,5 +42,3 @@ It will load and configure:
  - bootstrap-only-grid
  - avoiraz
 ```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
