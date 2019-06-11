@@ -1,4 +1,4 @@
-# Netshoes Products
+# Products
 
 > Project developed in Vue.js
 
